@@ -354,7 +354,7 @@ const SearchBreed = () => {
               whileHover={{ 
                 scale: 1.05,
                 y: -4,
-                boxShadow: '0 8px 20px rgba(140, 82, 255, 0.3)'
+                boxShadow: '0 8px 20px rgba(217, 119, 6, 0.3)'
               }}
               whileTap={{ 
                 scale: 0.95,

@@ -143,7 +143,7 @@ export default function BreedInfoDisplay({ predictionResult }) {
           className="w-48 h-48 md:w-56 md:h-56 rounded-[18%_/12%] overflow-hidden shadow-md cursor-pointer"
           whileHover={{ 
             y: -8,
-            boxShadow: "0 20px 40px rgba(140, 82, 255, 0.4)",
+            boxShadow: "0 20px 40px rgba(217, 119, 6, 0.4)",
             scale: 1.05
           }}
           transition={{ duration: 0.3 }}
@@ -194,12 +194,12 @@ export default function BreedInfoDisplay({ predictionResult }) {
           }
           className="w-full rounded-2xl shadow-md border transition-all duration-300 px-6 py-4 flex items-center justify-between"
           style={{
-            backgroundColor: "#8c52ff",
-            borderColor: "#7a3ef0",
+            backgroundColor: "var(--primary)",
+            borderColor: "var(--secondary)",
           }}
           whileHover={{ 
             y: -4,
-            boxShadow: "0 12px 30px rgba(140, 82, 255, 0.4)",
+            boxShadow: "0 12px 30px rgba(217, 119, 6, 0.4)",
             scale: 1.02
           }}
           whileTap={{ scale: 0.98 }}
@@ -235,13 +235,13 @@ export default function BreedInfoDisplay({ predictionResult }) {
             exit={{ opacity: 0, scale: 0.8 }}
             className="fixed bottom-8 right-8 w-14 h-14 rounded-full flex items-center justify-center shadow-lg cursor-pointer z-50"
             style={{
-              backgroundColor: "#8c52ff",
+              backgroundColor: "var(--primary)",
               color: "white",
             }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             whileHover={{ 
               scale: 1.1,
-              boxShadow: "0 8px 25px rgba(140, 82, 255, 0.5)"
+              boxShadow: "0 8px 25px rgba(217, 119, 6, 0.5)"
             }}
             whileTap={{ scale: 0.9 }}
             aria-label={t("breedInfo.backToTop")}

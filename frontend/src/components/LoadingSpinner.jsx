@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import pawIcon from '../assets/icons8-cat-footprint-64.png';
+import pawIcon from '../assets/dogpaw.png';
 
 const LoadingSpinner = ({ message = "Loading..." }) => {
   return (
@@ -10,7 +10,7 @@ const LoadingSpinner = ({ message = "Loading..." }) => {
     >
       {/* Bouncing Paw Animation */}
       <motion.div
-        className="mb-6"
+        className="mb-6 paw-spinner"
         animate={{
           y: [0, -30, 0],
           rotate: [0, 10, -10, 0],
@@ -34,7 +34,7 @@ const LoadingSpinner = ({ message = "Loading..." }) => {
             ease: "easeInOut"
           }}
           style={{
-            filter: "drop-shadow(0 4px 8px rgba(140, 82, 255, 0.3))"
+            filter: "drop-shadow(0 4px 8px rgba(217, 119, 6, 0.3))"
           }}
         />
       </motion.div>
@@ -59,7 +59,7 @@ const LoadingSpinner = ({ message = "Loading..." }) => {
           <motion.div
             key={index}
             className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: "#8c52ff" }}
+            style={{ backgroundColor: "var(--color-upload-spinner)" }}
             animate={{
               scale: [1, 1.5, 1],
               opacity: [0.5, 1, 0.5],

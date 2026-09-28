@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import heroVideo from "../assets/hero_section_video.mp4";
 import breedsIcon from "../assets/breeds_icon.png";
 import accuracyIcon from "../assets/accuracy_icon.png";
 import speedIcon from "../assets/speed_icon.png";
@@ -37,31 +36,16 @@ const HeroSection = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
     >
-      {/* Background video */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        src={heroVideo}
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-      />
 
-      {/* Violet overlay tint */}
-      <div
-        className="absolute inset-0 mix-blend-multiply pointer-events-none z-10"
-        style={{
-          backgroundColor: "var(--color-hero-overlay)",
-          opacity: "var(--color-hero-overlay-opacity)",
-        }}
-      ></div>
 
       {/* Content */}
       <div
         className="relative z-20 max-w-5xl mx-auto w-full px-6 text-center -translate-y-6"
         style={{ color: "var(--color-hero-text)" }}
       >
+        <p className="font-script text-3xl md:text-4xl text-paw-accent mb-3 drop-shadow-sm">
+          {t("hero.tagline")}
+        </p>
         <motion.h1
           className="font-alfa text-5xl md:text-6xl leading-tight"
           initial={{ y: 40, opacity: 0, scale: 0.95 }}
@@ -99,15 +83,15 @@ const HeroSection = () => {
             }}
             className="font-alfa text-xl md:text-2xl px-10 py-4 rounded-full shadow-lg transition-all relative overflow-hidden group"
             style={{
-              background: "var(--color-hero-button-bg)",
-              color: "var(--color-hero-button-text)",
-              boxShadow: "var(--color-hero-button-shadow)",
+              background: "var(--primary)",
+              color: "var(--text)",
+              boxShadow: "0 12px 30px color-mix(in srgb, var(--primary) 35%, transparent)",
               maxWidth: "300px",
             }}
             whileHover={{
               scale: 1.08,
               y: -4,
-              boxShadow: "var(--color-hero-button-hover-shadow)",
+              boxShadow: "0 18px 40px color-mix(in srgb, var(--primary) 45%, transparent)",
             }}
             whileTap={{ scale: 0.95, y: -2 }}
             animate={{ y: [0, -8, 0] }}
@@ -127,9 +111,9 @@ const HeroSection = () => {
               className="relative z-10"
               animate={{
                 textShadow: [
-                  "0 0 0px rgba(75,0,130,0.5)",
-                  "0 0 10px rgba(75,0,130,0.3)",
-                  "0 0 0px rgba(75,0,130,0.5)",
+                  "0 0 0px rgba(126,81,240,0.4)",
+                  "0 0 10px rgba(126,81,240,0.25)",
+                  "0 0 0px rgba(126,81,240,0.4)",
                 ],
               }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -152,9 +136,9 @@ const HeroSection = () => {
             whileHover={{ y: -6, scale: 1.02 }}
             className="flex items-center font-archivo font-bold px-4 py-2 rounded-full shadow min-w-[160px] transition-shadow"
             style={{
-              backgroundColor: "var(--color-hero-card-bg)",
-              color: "var(--color-hero-card-text)",
-              boxShadow: "var(--color-hero-card-shadow)",
+              backgroundColor: "var(--paw-surface)",
+              color: "var(--primary)",
+              boxShadow: "var(--paw-shadow)",
             }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
           >
@@ -173,9 +157,9 @@ const HeroSection = () => {
             whileHover={{ y: -6, scale: 1.02 }}
             className="flex items-center font-archivo font-bold px-4 py-2 rounded-full shadow min-w-[160px] transition-shadow"
             style={{
-              backgroundColor: "var(--color-hero-card-bg)",
-              color: "var(--color-hero-card-text)",
-              boxShadow: "var(--color-hero-card-shadow)",
+              backgroundColor: "var(--paw-surface)",
+              color: "var(--secondary)",
+              boxShadow: "var(--paw-shadow)",
             }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
           >
@@ -194,9 +178,9 @@ const HeroSection = () => {
             whileHover={{ y: -6, scale: 1.02 }}
             className="flex items-center font-archivo font-bold px-4 py-2 rounded-full shadow min-w-[160px] transition-shadow"
             style={{
-              backgroundColor: "var(--color-hero-card-bg)",
-              color: "var(--color-hero-card-text)",
-              boxShadow: "var(--color-hero-card-shadow)",
+              backgroundColor: "var(--paw-surface)",
+              color: "var(--accent)",
+              boxShadow: "var(--paw-shadow)",
             }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
           >
@@ -215,8 +199,5 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-
-
 
 

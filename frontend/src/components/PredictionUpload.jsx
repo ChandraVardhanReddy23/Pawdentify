@@ -460,6 +460,9 @@ const PredictionUpload = ({ onPredictionSuccess, onPredictionFail, onClearPredic
               >
                 {t("upload.dragDropTitle")}
               </p>
+              <p className="font-script text-2xl text-paw-accent mb-3">
+                {t("upload.waitingMessage", "Your pup is ready when you are!")}
+              </p>
               <p
                 className="text-base mb-6"
                 style={{ color: "var(--color-upload-text-secondary)" }}
@@ -480,7 +483,7 @@ const PredictionUpload = ({ onPredictionSuccess, onPredictionFail, onClearPredic
 
                 <motion.button
                   onClick={handleBrowseClick}
-                  className="px-6 py-3 rounded-full font-alfa text-white shadow-md focus:outline-none focus:ring-4 focus:ring-purple-300/30 transition-all"
+                  className="px-6 py-3 rounded-full font-alfa text-white shadow-md focus:outline-none focus:ring-4 focus:ring-amber-300/30 transition-all"
                   style={{
                     background: previewUrl
                       ? "var(--color-upload-btn-browse-selected)"
@@ -495,7 +498,7 @@ const PredictionUpload = ({ onPredictionSuccess, onPredictionFail, onClearPredic
                 <motion.button
                   onClick={handlePrediction}
                   disabled={isLoading}
-                  className="px-6 py-3 rounded-full font-semibold shadow-md border hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-purple-200 transition-all flex items-center gap-2"
+                  className="px-6 py-3 rounded-full font-semibold shadow-md border hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-amber-200 transition-all flex items-center gap-2"
                   style={{
                     backgroundColor: "var(--color-upload-btn-run-bg)",
                     color: "var(--color-upload-btn-run-text)",
@@ -528,7 +531,7 @@ const PredictionUpload = ({ onPredictionSuccess, onPredictionFail, onClearPredic
                 {previewUrl && (
                   <button
                     onClick={resetStates}
-                    className="ml-2 px-4 py-2 border rounded-full hover:bg-white focus:outline-none focus:ring-3 focus:ring-purple-200 transition"
+                    className="ml-2 px-4 py-2 border rounded-full hover:bg-amber-50 focus:outline-none focus:ring-3 focus:ring-amber-200 transition"
                     style={{
                       backgroundColor: "var(--color-upload-btn-cancel-bg)",
                       color: "var(--color-upload-btn-cancel-text)",

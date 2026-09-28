@@ -344,7 +344,7 @@ const Settings = ({ onBack }) => {
                     <div
                       className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
                       style={{
-                        backgroundColor: settings.saveHistory ? "#8c52ff" : "#d1d5db",
+                        backgroundColor: settings.saveHistory ? "var(--primary)" : "#d1d5db",
                       }}
                     >
                       <span

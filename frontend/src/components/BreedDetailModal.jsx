@@ -126,8 +126,8 @@ export default function BreedDetailModal({ breedId, onClose }) {
               className="absolute -top-3 -right-3 w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-lg"
               style={{
                 backgroundColor: '#f3e8ff',
-                color: '#8c52ff',
-                border: '2px solid #8c52ff',
+                color: 'var(--primary)',
+                border: '2px solid var(--primary)',
                 zIndex: 100
               }}
               whileHover={{
@@ -176,8 +176,8 @@ export default function BreedDetailModal({ breedId, onClose }) {
                 className="absolute -top-3 -right-3 w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-lg"
                 style={{
                   backgroundColor: '#f3e8ff',
-                  color: '#8c52ff',
-                  border: '2px solid #8c52ff',
+                  color: 'var(--primary)',
+                  border: '2px solid var(--primary)',
                   zIndex: 100
                 }}
                 whileHover={{
@@ -277,12 +277,12 @@ export default function BreedDetailModal({ breedId, onClose }) {
             }
             className="w-full rounded-2xl shadow-md border transition-all duration-300 px-6 py-4 flex items-center justify-between"
             style={{
-              backgroundColor: "#8c52ff",
-              borderColor: "#7a3ef0",
+              backgroundColor: "var(--primary)",
+              borderColor: "var(--secondary)",
             }}
             whileHover={{ 
               y: -4,
-              boxShadow: "0 12px 30px rgba(140, 82, 255, 0.4)",
+              boxShadow: "0 12px 30px rgba(217, 119, 6, 0.4)",
               scale: 1.02
             }}
             whileTap={{ scale: 0.98 }}
@@ -313,13 +313,13 @@ export default function BreedDetailModal({ breedId, onClose }) {
             exit={{ opacity: 0, scale: 0.8 }}
             className="fixed bottom-8 right-8 w-14 h-14 rounded-full flex items-center justify-center shadow-lg cursor-pointer z-50"
             style={{
-              backgroundColor: "#8c52ff",
+              backgroundColor: "var(--primary)",
               color: "white",
             }}
             onClick={scrollToTop}
             whileHover={{ 
               scale: 1.1,
-              boxShadow: "0 8px 25px rgba(140, 82, 255, 0.5)"
+              boxShadow: "0 8px 25px rgba(217, 119, 6, 0.5)"
             }}
             whileTap={{ scale: 0.9 }}
             aria-label="Back to top"
@@ -343,24 +343,24 @@ export default function BreedDetailModal({ breedId, onClose }) {
         }
         
         .breed-modal-scrollbar::-webkit-scrollbar-track {
-          background: rgba(140, 82, 255, 0.1);
+          background: rgba(217, 119, 6, 0.1);
           border-radius: 10px;
         }
         
         .breed-modal-scrollbar::-webkit-scrollbar-thumb {
-          background: #8c52ff;
+          background: var(--primary);
           border-radius: 10px;
           border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
         .breed-modal-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #7a3ef0;
+          background: var(--secondary);
         }
         
         /* Firefox */
         .breed-modal-scrollbar {
           scrollbar-width: thin;
-          scrollbar-color: #8c52ff rgba(140, 82, 255, 0.1);
+          scrollbar-color: var(--primary) rgba(217, 119, 6, 0.1);
         }
       `}</style>
     </div>

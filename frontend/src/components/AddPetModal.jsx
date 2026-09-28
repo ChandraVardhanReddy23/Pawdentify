@@ -250,9 +250,9 @@ export default function AddPetModal({ isOpen, onClose, onSave }) {
                   <label 
                     className="w-full px-4 py-3 rounded-lg text-center cursor-pointer transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{
-                      backgroundColor: imagePreview ? 'rgba(140, 82, 255, 0.1)' : '#8c52ff',
-                      color: imagePreview ? '#8c52ff' : 'white',
-                      border: imagePreview ? '2px solid #8c52ff' : 'none',
+                      backgroundColor: imagePreview ? 'rgba(217, 119, 6, 0.1)' : 'var(--primary)',
+                      color: imagePreview ? 'var(--primary)' : 'white',
+                      border: imagePreview ? '2px solid var(--primary)' : 'none',
                       pointerEvents: isSubmitting ? 'none' : 'auto'
                     }}
                   >
@@ -297,8 +297,8 @@ export default function AddPetModal({ isOpen, onClose, onSave }) {
                 disabled={isSubmitting}
                 className="flex-1 px-6 py-3 rounded-lg text-white transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 style={{
-                  backgroundColor: '#8c52ff',
-                  boxShadow: '0 4px 14px rgba(140, 82, 255, 0.4)'
+                  backgroundColor: 'var(--primary)',
+                  boxShadow: '0 4px 14px rgba(217, 119, 6, 0.4)'
                 }}
               >
                 {isSubmitting ? (

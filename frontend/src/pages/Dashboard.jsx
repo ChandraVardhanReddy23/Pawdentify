@@ -239,7 +239,7 @@ export default function Dashboard() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
         >
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full animate-spin" style={{ border: '4px solid rgba(140, 82, 255, 0.2)', borderTopColor: '#8c52ff' }}></div>
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full animate-spin" style={{ border: '4px solid rgba(217, 119, 6, 0.2)', borderTopColor: 'var(--primary)' }}></div>
           <p className="font-archivo text-lg" style={{ color: 'var(--color-text-secondary)' }}>
             {t('dashboard.loading')}
           </p>
@@ -267,7 +267,7 @@ export default function Dashboard() {
   <div 
     className="h-32"
     style={{
-      background: 'linear-gradient(135deg, #8c52ff 0%, #a78bfa 100%)'
+      background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%)'
     }}
   />
   
@@ -317,24 +317,24 @@ export default function Dashboard() {
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
             <div 
               className="flex items-center gap-2 px-4 py-2 rounded-lg"
-              style={{ backgroundColor: 'rgba(140, 82, 255, 0.1)' }}
+              style={{ backgroundColor: 'rgba(217, 119, 6, 0.1)' }}
             >
-              <svg className="w-4 h-4" style={{ color: '#8c52ff' }} fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-4 h-4" style={{ color: 'var(--primary)' }} fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
               </svg>
-              <span className="text-sm font-archivo font-semibold" style={{ color: '#8c52ff' }}>
+              <span className="text-sm font-archivo font-semibold" style={{ color: 'var(--primary)' }}>
                 {t('dashboard.profile.joined')} {new Date(user?.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
               </span>
             </div>
             {user?.unsafeMetadata?.city && (
               <div 
                 className="flex items-center gap-2 px-4 py-2 rounded-lg"
-                style={{ backgroundColor: 'rgba(140, 82, 255, 0.1)' }}
+                style={{ backgroundColor: 'rgba(217, 119, 6, 0.1)' }}
               >
-                <svg className="w-4 h-4" style={{ color: '#8c52ff' }} fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4" style={{ color: 'var(--primary)' }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
-                <span className="text-sm font-archivo font-semibold" style={{ color: '#8c52ff' }}>
+                <span className="text-sm font-archivo font-semibold" style={{ color: 'var(--primary)' }}>
                   {user?.unsafeMetadata?.city}
                 </span>
               </div>
@@ -348,12 +348,12 @@ export default function Dashboard() {
         <motion.div 
           className="text-center px-6 py-4 rounded-xl min-w-[100px]"
           style={{ 
-            backgroundColor: 'rgba(140, 82, 255, 0.05)',
-            border: '2px solid rgba(140, 82, 255, 0.2)'
+            backgroundColor: 'rgba(217, 119, 6, 0.05)',
+            border: '2px solid rgba(217, 119, 6, 0.2)'
           }}
-          whileHover={{ scale: 1.05, borderColor: 'rgba(140, 82, 255, 0.4)' }}
+          whileHover={{ scale: 1.05, borderColor: 'rgba(217, 119, 6, 0.4)' }}
         >
-          <div className="text-2xl font-alfa mb-1" style={{ color: '#8c52ff' }}>
+          <div className="text-2xl font-alfa mb-1" style={{ color: 'var(--primary)' }}>
             {pets.length}
           </div>
           <div className="text-sm font-archivo font-semibold" style={{ color: 'var(--color-text-secondary)' }}>
@@ -363,12 +363,12 @@ export default function Dashboard() {
         <motion.div 
           className="text-center px-6 py-4 rounded-xl min-w-[100px]"
           style={{ 
-            backgroundColor: 'rgba(140, 82, 255, 0.05)',
-            border: '2px solid rgba(140, 82, 255, 0.2)'
+            backgroundColor: 'rgba(217, 119, 6, 0.05)',
+            border: '2px solid rgba(217, 119, 6, 0.2)'
           }}
-          whileHover={{ scale: 1.05, borderColor: 'rgba(140, 82, 255, 0.4)' }}
+          whileHover={{ scale: 1.05, borderColor: 'rgba(217, 119, 6, 0.4)' }}
         >
-          <div className="text-2xl font-alfa mb-1" style={{ color: '#8c52ff' }}>
+          <div className="text-2xl font-alfa mb-1" style={{ color: 'var(--primary)' }}>
             {history.length}
           </div>
           <div className="text-sm font-archivo font-semibold" style={{ color: 'var(--color-text-secondary)' }}>
@@ -393,9 +393,9 @@ export default function Dashboard() {
             onClick={() => setActiveTab('pets')}
             className="flex items-center gap-3 px-8 py-4 rounded-2xl font-alfa text-lg transition-all"
             style={{
-              backgroundColor: activeTab === 'pets' ? '#8c52ff' : 'var(--color-card-bg)',
+              backgroundColor: activeTab === 'pets' ? 'var(--primary)' : 'var(--color-card-bg)',
               color: activeTab === 'pets' ? 'white' : 'var(--color-text-primary)',
-              boxShadow: activeTab === 'pets' ? '0 8px 25px rgba(140, 82, 255, 0.4)' : 'none',
+              boxShadow: activeTab === 'pets' ? '0 8px 25px rgba(217, 119, 6, 0.4)' : 'none',
               border: activeTab === 'pets' ? 'none' : '2px solid var(--color-card-border)'
             }}
             whileHover={{ scale: 1.05, y: -2 }}
@@ -411,9 +411,9 @@ export default function Dashboard() {
             onClick={() => setActiveTab('history')}
             className="flex items-center gap-3 px-8 py-4 rounded-2xl font-alfa text-lg transition-all"
             style={{
-              backgroundColor: activeTab === 'history' ? '#8c52ff' : 'var(--color-card-bg)',
+              backgroundColor: activeTab === 'history' ? 'var(--primary)' : 'var(--color-card-bg)',
               color: activeTab === 'history' ? 'white' : 'var(--color-text-primary)',
-              boxShadow: activeTab === 'history' ? '0 8px 25px rgba(140, 82, 255, 0.4)' : 'none',
+              boxShadow: activeTab === 'history' ? '0 8px 25px rgba(217, 119, 6, 0.4)' : 'none',
               border: activeTab === 'history' ? 'none' : '2px solid var(--color-card-border)'
             }}
             whileHover={{ scale: 1.05, y: -2 }}
@@ -446,9 +446,9 @@ export default function Dashboard() {
                       onClick={() => setIsAddPetModalOpen(true)}
                       className="px-6 py-3 rounded-xl font-alfa flex items-center gap-2"
                       style={{
-                        background: 'linear-gradient(135deg, #8c52ff 0%, #a78bfa 100%)',
+                        background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%)',
                         color: 'white',
-                        boxShadow: '0 4px 15px rgba(140, 82, 255, 0.4)'
+                        boxShadow: '0 4px 15px rgba(217, 119, 6, 0.4)'
                       }}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
@@ -472,7 +472,7 @@ export default function Dashboard() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.1 }}
-                        whileHover={{ y: -8, boxShadow: '0 20px 40px rgba(140, 82, 255, 0.25)' }}
+                        whileHover={{ y: -8, boxShadow: '0 20px 40px rgba(217, 119, 6, 0.25)' }}
                       >
                         <div className="relative h-56 overflow-hidden">
                           <img
@@ -496,7 +496,7 @@ export default function Dashboard() {
                               onClick={() => handleViewPetDetails(pet)}
                               className="flex-1 px-4 py-3 rounded-xl font-archivo font-semibold"
                               style={{
-                                background: 'linear-gradient(135deg, #8c52ff 0%, #a78bfa 100%)',
+                                background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%)',
                                 color: 'white'
                               }}
                               whileHover={{ scale: 1.05 }}
@@ -547,9 +547,9 @@ export default function Dashboard() {
                       onClick={() => setIsAddPetModalOpen(true)}
                       className="px-8 py-4 rounded-xl font-alfa text-lg"
                       style={{
-                        background: 'linear-gradient(135deg, #8c52ff 0%, #a78bfa 100%)',
+                        background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%)',
                         color: 'white',
-                        boxShadow: '0 8px 25px rgba(140, 82, 255, 0.4)'
+                        boxShadow: '0 8px 25px rgba(217, 119, 6, 0.4)'
                       }}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
@@ -562,8 +562,8 @@ export default function Dashboard() {
                   <motion.div
                     className="rounded-3xl p-8"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(140, 82, 255, 0.1) 0%, rgba(167, 139, 250, 0.1) 100%)',
-                      border: '2px solid rgba(140, 82, 255, 0.3)'
+                      background: 'linear-gradient(135deg, rgba(217, 119, 6, 0.1) 0%, rgba(167, 139, 250, 0.1) 100%)',
+                      border: '2px solid rgba(217, 119, 6, 0.3)'
                     }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -587,10 +587,10 @@ export default function Dashboard() {
                             backgroundColor: 'var(--color-card-bg)',
                             border: '2px solid var(--color-card-border)'
                           }}
-                          whileHover={{ scale: 1.05, y: -4, boxShadow: '0 12px 30px rgba(140, 82, 255, 0.2)' }}
+                          whileHover={{ scale: 1.05, y: -4, boxShadow: '0 12px 30px rgba(217, 119, 6, 0.2)' }}
                         >
                           <div className="text-4xl mb-3">{link.icon}</div>
-                          <h4 className="font-alfa text-lg mb-2" style={{ color: '#8c52ff' }}>
+                          <h4 className="font-alfa text-lg mb-2" style={{ color: 'var(--primary)' }}>
                             {link.title}
                           </h4>
                           <p className="font-archivo text-sm" style={{ color: 'var(--color-text-secondary)' }}>
@@ -603,9 +603,9 @@ export default function Dashboard() {
                       onClick={() => window.open('https://www.petfinder.com', '_blank')}
                       className="w-full px-6 py-4 rounded-xl font-alfa text-lg"
                       style={{
-                        background: 'linear-gradient(135deg, #8c52ff 0%, #a78bfa 100%)',
+                        background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%)',
                         color: 'white',
-                        boxShadow: '0 4px 15px rgba(140, 82, 255, 0.4)'
+                        boxShadow: '0 4px 15px rgba(217, 119, 6, 0.4)'
                       }}
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
@@ -643,7 +643,7 @@ export default function Dashboard() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      whileHover={{ scale: 1.02, boxShadow: '0 12px 30px rgba(140, 82, 255, 0.2)' }}
+                      whileHover={{ scale: 1.02, boxShadow: '0 12px 30px rgba(217, 119, 6, 0.2)' }}
                     >
                       <div className="flex items-center gap-6">
                         <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
@@ -661,7 +661,7 @@ export default function Dashboard() {
                             <span className="font-archivo" style={{ color: 'var(--color-text-secondary)' }}>
                               {t('dashboard.history.confidence')}:
                             </span>
-                            <span className="font-alfa text-lg" style={{ color: '#8c52ff' }}>
+                            <span className="font-alfa text-lg" style={{ color: 'var(--primary)' }}>
                               {item.confidence}
                             </span>
                           </div>
@@ -707,9 +707,9 @@ export default function Dashboard() {
                     onClick={() => navigate('/')}
                     className="px-8 py-4 rounded-xl font-alfa text-lg"
                     style={{
-                      background: 'linear-gradient(135deg, #8c52ff 0%, #a78bfa 100%)',
+                      background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary) 100%)',
                       color: 'white',
-                      boxShadow: '0 8px 25px rgba(140, 82, 255, 0.4)'
+                      boxShadow: '0 8px 25px rgba(217, 119, 6, 0.4)'
                     }}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}

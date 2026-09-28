@@ -111,7 +111,7 @@ export default function PetDetailsModal({ isOpen, onClose, pet, onAddNote, onDel
                   </p>
                   <p 
                     className="text-sm"
-                    style={{ color: '#8c52ff' }}
+                    style={{ color: 'var(--primary)' }}
                   >
                     {t('dashboard.pets.age')}: {calculateAge(pet.birthday)}
                   </p>
@@ -139,8 +139,8 @@ export default function PetDetailsModal({ isOpen, onClose, pet, onAddNote, onDel
                 onClick={() => setShowNoteInput(!showNoteInput)}
                 className="px-4 py-2 rounded-lg text-white text-sm transition-transform hover:scale-105"
                 style={{
-                  backgroundColor: '#8c52ff',
-                  boxShadow: '0 2px 8px rgba(140, 82, 255, 0.3)'
+                  backgroundColor: 'var(--primary)',
+                  boxShadow: '0 2px 8px rgba(217, 119, 6, 0.3)'
                 }}
               >
                 {t('dashboard.pets.petDetails.addNote')}
@@ -174,7 +174,7 @@ export default function PetDetailsModal({ isOpen, onClose, pet, onAddNote, onDel
 
             {/* Add Note Input */}
             {showNoteInput && (
-              <div className="mb-4 p-4 rounded-lg" style={{ backgroundColor: 'rgba(140, 82, 255, 0.05)' }}>
+              <div className="mb-4 p-4 rounded-lg" style={{ backgroundColor: 'rgba(217, 119, 6, 0.05)' }}>
                 <label 
                   className="block text-sm mb-2"
                   style={{ color: 'var(--color-auth-title)' }}
@@ -213,7 +213,7 @@ export default function PetDetailsModal({ isOpen, onClose, pet, onAddNote, onDel
                     onClick={handleAddNote}
                     className="px-4 py-2 rounded-lg text-white text-sm transition-all hover:scale-105"
                     style={{
-                      backgroundColor: '#8c52ff',
+                      backgroundColor: 'var(--primary)',
                     }}
                   >
                     {t('dashboard.pets.petDetails.saveNote')}
@@ -338,8 +338,8 @@ export default function PetDetailsModal({ isOpen, onClose, pet, onAddNote, onDel
             onClick={onClose}
             className="w-full py-3 rounded-lg text-white transition-transform hover:scale-105"
             style={{
-              backgroundColor: '#8c52ff',
-              boxShadow: '0 4px 14px rgba(140, 82, 255, 0.4)'
+              backgroundColor: 'var(--primary)',
+              boxShadow: '0 4px 14px rgba(217, 119, 6, 0.4)'
             }}
           >
             {t('dashboard.pets.petDetails.close')}

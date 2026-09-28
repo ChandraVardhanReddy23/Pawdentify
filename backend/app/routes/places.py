@@ -97,6 +97,47 @@ PLACE_CATEGORIES = {
 
 MAX_RADIUS = 10000
 
+@router.get("/search")
+async def search_places(
+    query: str = Query(..., min_length=3, max_length=120),
+    current_user: dict = Depends(get_current_user)
+):
+    """Search Mappls locations for manually selecting a map center."""
+    access_token, _ = await get_access_token()
+    if not access_token:
+        raise HTTPException(status_code=503, detail="Map search authentication unavailable")
+
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            response = await client.get(
+                "https://atlas.mappls.com/api/places/search/json",
+                params={"query": query, "region": "IND"},
+                headers={"Authorization": f"Bearer {access_token}"}
+            )
+        if response.status_code != 200:
+            raise HTTPException(status_code=502, detail="Map search failed")
+
+        data = response.json()
+        raw_locations = data.get("suggestedLocations", data.get("copResults", []))
+        locations = []
+        for item in raw_locations[:8]:
+            latitude = item.get("latitude", item.get("y"))
+            longitude = item.get("longitude", item.get("x"))
+            if latitude is None or longitude is None:
+                continue
+            locations.append({
+                "placeName": item.get("placeName", item.get("placeAddress", query)),
+                "address": item.get("placeAddress", item.get("address", "")),
+                "latitude": latitude,
+                "longitude": longitude,
+            })
+        return {"locations": locations}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        print(f"[Places] Location search failed: {exc}")
+        raise HTTPException(status_code=502, detail="Map search unavailable")
+
 @router.get("/nearby")
 async def get_nearby_places(
     category: str = Query(..., description="Category: vet, pet_store, food_store, shelter, ngo"),
@@ -251,8 +292,6 @@ async def get_nearby_places(
             "error": "server_error",
             "message": "Something went wrong. Please try again."
         }
-
-
 
 
 

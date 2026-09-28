@@ -3,7 +3,7 @@ import React from 'react';
 
 export const LogoPawImage = ({ className = 'w-6 h-6' }) => (
 <img
-src="https://placehold.co/50x50/8c52ff/ffffff?text=P"
+src="https://placehold.co/50x50/D97706/ffffff?text=P"
 alt="Paw Icon"
 className={`${className} inline mx-1 transform scale-x-[-1]`}
 style={{ borderRadius: '50%', background: 'transparent' }}
@@ -59,7 +59,7 @@ export const CrossImage = ({ className = 'w-5 h-5' }) => (
 
 export const UploadPawImage = ({ className = 'w-16 h-16' }) => (
 <img
-src="https://placehold.co/100x100/8c52ff/ffffff?text=P"
+src="https://placehold.co/100x100/D97706/ffffff?text=P"
 alt="Upload Paw Icon"
 className={`${className} object-contain`}
 />

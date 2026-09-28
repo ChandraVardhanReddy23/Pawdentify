@@ -19,12 +19,12 @@ export default function AccordionCard({ title, icon, data }) {
       }}
       whileHover={{ 
         y: -4,
-        boxShadow: "0 12px 30px rgba(140, 82, 255, 0.2)",
+        boxShadow: "0 12px 30px rgba(217, 119, 6, 0.2)",
         scale: 1.01
       }}
       animate={isExpanded ? {
         y: -4,
-        boxShadow: "0 12px 30px rgba(140, 82, 255, 0.2)",
+        boxShadow: "0 12px 30px rgba(217, 119, 6, 0.2)",
         scale: 1.01
       } : {}}
     >

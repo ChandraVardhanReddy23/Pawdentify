@@ -99,7 +99,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
       }}
       whileHover={{ 
         y: -8,
-        boxShadow: '0 20px 40px rgba(140, 82, 255, 0.25)'
+        boxShadow: '0 20px 40px rgba(217, 119, 6, 0.25)'
       }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
@@ -114,7 +114,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
         <motion.div 
           className="absolute top-3 left-3 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-lg z-10"
           style={{
-            backgroundColor: rank <= 3 ? '#FFD700' : '#8c52ff',
+            backgroundColor: rank <= 3 ? '#FFD700' : 'var(--primary)',
             color: rank <= 3 ? '#000' : '#fff'
           }}
           initial={{ scale: 0 }}
@@ -190,7 +190,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
           <motion.div 
             className="flex flex-col items-center p-2 rounded-lg"
             style={{
-              backgroundColor: 'rgba(140, 82, 255, 0.1)',
+              backgroundColor: 'rgba(217, 119, 6, 0.1)',
               minHeight: '60px'
             }}
             whileHover={{ scale: 1.05 }}
@@ -203,7 +203,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
             </span>
             <span 
               className="text-sm font-bold text-center"
-              style={{ color: '#8c52ff' }}
+              style={{ color: 'var(--primary)' }}
             >
               {breedInfo.size}
             </span>
@@ -213,7 +213,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
           <motion.div 
             className="flex flex-col items-center p-2 rounded-lg"
             style={{
-              backgroundColor: 'rgba(140, 82, 255, 0.1)',
+              backgroundColor: 'rgba(217, 119, 6, 0.1)',
               minHeight: '60px'
             }}
             whileHover={{ scale: 1.05 }}
@@ -226,7 +226,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
             </span>
             <span 
               className="text-sm font-bold text-center"
-              style={{ color: '#8c52ff' }}
+              style={{ color: 'var(--primary)' }}
             >
               {formatStat(breedInfo.weight)}kg
             </span>
@@ -236,7 +236,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
           <motion.div 
             className="flex flex-col items-center p-2 rounded-lg"
             style={{
-              backgroundColor: 'rgba(140, 82, 255, 0.1)',
+              backgroundColor: 'rgba(217, 119, 6, 0.1)',
               minHeight: '60px'
             }}
             whileHover={{ scale: 1.05 }}
@@ -249,7 +249,7 @@ const BreedCard = ({ breed, onClick, rank }) => {
             </span>
             <span 
               className="text-sm font-bold text-center"
-              style={{ color: '#8c52ff' }}
+              style={{ color: 'var(--primary)' }}
             >
               {formatStat(breedInfo.height)}cm
             </span>

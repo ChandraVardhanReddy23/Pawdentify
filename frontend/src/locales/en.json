@@ -1,5 +1,6 @@
 {
   "hero": {
+    "tagline": "Made for curious noses & happy tails",
     "title": "Man's best friend",
     "description": {
       "part1": "Get to know your dog the best you can and give them a home they deserve.",
@@ -13,6 +14,7 @@
     }
   },
   "guidelines": {
+    "proTip": "A calm pup and a clear photo make the best team. Natural light works wonders!",
     "title": "Prediction Guidelines",
     "dos": {
       "title": "Do's",
@@ -35,6 +37,7 @@
     "note": "Following these guidelines will help our AI provide more accurate breed predictions."
   },
   "upload": {
+    "waitingMessage": "Your pup is ready when you are!",
     "title": "Upload & Predict",
     "dragDropTitle": "Drag & drop an image",
     "description": "We recommend a clear, front-facing photo. Images are processed locally before sending to the model.",
@@ -175,6 +178,10 @@
     },
     "enableLocation": "Enable location to find services near you",
     "locationError": "Unable to access your location. Please enable location services.",
+    "searchLocation": "Where should we look?",
+    "searchLocationPlaceholder": "Search a city, area, or pincode",
+    "useCurrentLocation": "Use my location",
+    "currentLocation": "Current location",
     "withPhone": "Places with Contact Number",
     "withoutPhone": "Places without Contact Number",
     "noResults": "No places found in this category",

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
 import { SignedIn, SignedOut, useUser, useClerk } from "@clerk/clerk-react";
 import { motion, AnimatePresence } from 'framer-motion';
-import pawLogo from "../assets/PAWS_white_text.png";
+import pawPrint from "../assets/dogpaw.png";
 
 const handleScrollTo = (id) => {
   const el = document.getElementById(id.substring(1));
@@ -13,6 +13,24 @@ const handleScrollTo = (id) => {
     window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
   }
 };
+
+// Text-based logo so it's always visible on any header background
+const PawLogo = ({ t }) => (
+  <div className="flex items-center space-x-0.5 text-2xl sm:text-3xl font-archivo font-bold tracking-widest select-none"
+    style={{ color: 'var(--color-nav-link)' }}
+  >
+    <span>P</span>
+    <motion.img
+      src={pawPrint}
+      alt=""
+      className="w-8 h-8 sm:w-10 sm:h-10"
+      style={{ filter: 'brightness(0) invert(1)' }}
+      whileHover={{ rotate: 360, scale: 1.15 }}
+      transition={{ duration: 0.4 }}
+    />
+    <span>WDENTIFY</span>
+  </div>
+);
 
 // Toast Component
 const Toast = ({ message, onClose }) => {
@@ -108,11 +126,11 @@ const Header = ({ showInfo }) => {
                 handleScrollTo("#hero");
               }}
             >
-              <img src={pawLogo} alt={t("header.logoAlt")} className="w-40 sm:w-60 h-auto object-contain" />
+              <PawLogo t={t} />
             </a>
           ) : (
             <Link to="/">
-              <img src={pawLogo} alt={t("header.logoAlt")} className="w-40 sm:w-60 h-auto object-contain" />
+              <PawLogo t={t} />
             </Link>
           )}
 
@@ -215,7 +233,7 @@ const Header = ({ showInfo }) => {
                   onClick={() => setShowDropdown(!showDropdown)}
                   className="w-10 h-10 rounded-full border-2 transition-all cursor-pointer overflow-hidden"
                   style={{
-                    borderColor: showDropdown ? '#8c52ff' : 'white',
+                    borderColor: showDropdown ? 'var(--primary)' : 'white',
                   }}
                 >
                   <img 
@@ -260,7 +278,7 @@ const Header = ({ showInfo }) => {
                         className="flex items-center w-full px-4 py-2 text-sm transition-colors text-left"
                         style={{ color: 'var(--clerk-color-text-primary)' }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(140, 82, 255, 0.15)';
+                          e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.15)';
                         }}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       >
@@ -276,7 +294,7 @@ const Header = ({ showInfo }) => {
                         className="flex items-center px-4 py-2 text-sm transition-colors"
                         style={{ color: 'var(--clerk-color-text-primary)' }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(140, 82, 255, 0.15)';
+                          e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.15)';
                         }}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       >
@@ -300,7 +318,7 @@ const Header = ({ showInfo }) => {
                         className="flex items-center w-full px-4 py-2 text-sm transition-colors text-left"
                         style={{ color: 'var(--clerk-color-text-primary)' }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(140, 82, 255, 0.15)';
+                          e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.15)';
                         }}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       >
