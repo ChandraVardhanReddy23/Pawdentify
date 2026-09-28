@@ -159,6 +159,7 @@ export default function BreedInfoDisplay({ predictionResult }) {
         </p>
       </div>
 
+
       {/* Tabs */}
       <BreedTabs activeSection={activeTab} onTabClick={(k) => setActiveTab(k)} />
 

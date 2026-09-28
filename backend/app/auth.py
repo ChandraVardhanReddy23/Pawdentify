@@ -1,6 +1,7 @@
 import os
 import jwt
 import requests
+from jwt.algorithms import RSAAlgorithm
 from fastapi import HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from functools import lru_cache
