@@ -10,7 +10,6 @@ padding: 0;
 min-height: 100vh;
 }
 }
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@400;600;700&display=swap');
 `}} />
 );
 

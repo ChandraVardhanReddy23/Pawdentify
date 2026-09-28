@@ -48,7 +48,9 @@ async def get_all_feedbacks(current_user: dict = Depends(get_current_user)):
     # Check if user is admin
     payload = current_user["payload"]
     public_metadata = payload.get("public_metadata", {})
-    if public_metadata.get("role") != "admin":
+    role = public_metadata.get("role") or payload.get("role")
+    
+    if role != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
 
     cursor = feedback_collection.find().sort("timestamp", -1)
@@ -64,3 +66,4 @@ async def get_all_feedbacks(current_user: dict = Depends(get_current_user)):
         }
         for item in feedbacks
     ]
+

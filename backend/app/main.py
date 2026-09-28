@@ -10,8 +10,8 @@ from typing import Optional
 
 from .preprocessing import preprocess_image_bytes, load_model_from_path, predict_top
 
-# --- NEW: Import routers for pets and history ---
-from .routes import pets, history, settings, places, feedback
+# --- Import routers ---
+from .routes import pets, history, settings, places, feedback, breeds  # <-- ADDED breeds
 
 # Load environment (expect backend/.env or backend/.env.example)
 BASE_DIR = Path(__file__).resolve().parent
@@ -27,18 +27,24 @@ app = FastAPI(title="Dog Breed Classifier API")
 # Allow CORS from dev frontend (adjust origin as needed)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # add your frontend origin(s)
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# --- NEW: Register routers for pets and history ---
+# --- Register routers ---
 app.include_router(pets.router)
 app.include_router(history.router)
 app.include_router(settings.router)
 app.include_router(places.router)
 app.include_router(feedback.router)
+app.include_router(breeds.router)  # <-- ADDED breeds router
 
 # Load breed info
 if not BREED_INFO_PATH.exists():
@@ -64,8 +70,13 @@ for item in BREED_JSON.get("breeds", []):
 
 # Load model
 MODEL = None
+FRAMEWORK = "tf"  # default; updated after successful load
 try:
     MODEL = load_model_from_path(MODEL_PATH)
+    # Detect framework from the loaded model object
+    import tensorflow as _tf
+    FRAMEWORK = "tf" if isinstance(MODEL, _tf.keras.Model) else "torch"
+    print(f"Model loaded successfully.  framework={FRAMEWORK}")
 except Exception as e:
     # keep MODEL as None; /predict will return 501 if model missing
     print("Model load failed:", e)
@@ -86,6 +97,10 @@ def get_breeds():
         })
     return {"breeds": out}
 
+@app.get("/model_status")
+def model_status():
+    return {"model_path": MODEL_PATH, "loaded": MODEL is not None, "framework": FRAMEWORK}
+
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     """
@@ -97,12 +112,12 @@ async def predict(file: UploadFile = File(...)):
 
     contents = await file.read()
     try:
-        img_arr = preprocess_image_bytes(contents)
+        img_arr = preprocess_image_bytes(contents, framework=FRAMEWORK)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid image: {e}")
 
     try:
-        top_idx, top_prob = predict_top(MODEL, img_arr)   # <-- top_idx is already 0-based
+        top_idx, top_prob = predict_top(MODEL, img_arr, framework=FRAMEWORK)   # <-- top_idx is already 0-based
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction failed: {e}")
 
@@ -122,4 +137,3 @@ async def predict(file: UploadFile = File(...)):
             "prediction": ID_TO_PRETTY.get(top_idx, "Unknown"),
             "confidence": round(float(top_prob), 4)
         })
-

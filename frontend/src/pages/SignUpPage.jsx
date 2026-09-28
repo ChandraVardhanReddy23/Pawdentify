@@ -81,7 +81,7 @@ export default function SignUpPage() {
         {!pendingVerification ? (
           <>
             <h1 
-              className="text-3xl font-bold mb-2"
+              className="text-3xl mb-2"
               style={{ color: 'var(--color-auth-title)' }}
             >
               {t('auth.signUp.title')}
@@ -236,8 +236,8 @@ export default function SignUpPage() {
                 type="submit"
                 className="w-full py-3 rounded-lg font-semibold text-white transition-all transform hover:scale-[1.02] active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(to right, #8c52ff, #6b21a8)',
-                  boxShadow: '0 4px 14px rgba(140, 82, 255, 0.4)'
+                  background: 'linear-gradient(to right, var(--primary), var(--text))',
+                  boxShadow: '0 4px 14px rgba(217, 119, 6, 0.4)'
                 }}
               >
                 {t('auth.signUp.submitButton')}
@@ -314,8 +314,8 @@ export default function SignUpPage() {
                 type="submit"
                 className="w-full py-3 rounded-lg font-semibold text-white transition-all transform hover:scale-[1.02] active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(to right, #8c52ff, #6b21a8)',
-                  boxShadow: '0 4px 14px rgba(140, 82, 255, 0.4)'
+                  background: 'linear-gradient(to right, var(--primary), var(--text))',
+                  boxShadow: '0 4px 14px rgba(217, 119, 6, 0.4)'
                 }}
               >
                 {t('auth.signUp.verifyButton')}

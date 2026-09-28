@@ -228,14 +228,30 @@ const PredictionGuidelines = () => {
             </div>
           </motion.div>
         </div>
+
+        <motion.aside
+          className="mt-10 rounded-[2rem] border-2 p-6 md:p-8 flex items-start gap-4"
+          style={{
+            backgroundColor: "color-mix(in srgb, var(--accent) 14%, var(--paw-surface))",
+            borderColor: "var(--accent)",
+            color: "var(--text)",
+          }}
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <span className="text-3xl" aria-hidden="true">💡</span>
+          <div>
+            <p className="font-script text-2xl text-paw-accent">Pro tip</p>
+            <p className="mt-1 font-semibold">{t("guidelines.proTip")}</p>
+          </div>
+        </motion.aside>
       </div>
     </motion.section>
   );
 };
 
 export default PredictionGuidelines;
-
-
 
 
 

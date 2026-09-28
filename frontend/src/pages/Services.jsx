@@ -18,6 +18,11 @@ const Services = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [userLocation, setUserLocation] = useState(null);
+  const [locationQuery, setLocationQuery] = useState('');
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [searchingLocation, setSearchingLocation] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const locationSearchRef = useRef(null);
 
   const categories = [
     { id: 'vet', icon: '🏥', label: t('services.categories.vet') },
@@ -36,31 +41,84 @@ const Services = () => {
   ];
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const loc = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          setUserLocation(loc);
-          initializeMap(loc);
-        },
-        (error) => {
-          console.error('Geolocation error:', error);
-          setError(t('services.locationError'));
-          const defaultLoc = { lat: 28.6139, lng: 77.2090 };
-          setUserLocation(defaultLoc);
-          initializeMap(defaultLoc);
-        }
-      );
-    } else {
-      setError(t('services.locationError'));
-      const defaultLoc = { lat: 28.6139, lng: 77.2090 };
-      setUserLocation(defaultLoc);
-      initializeMap(defaultLoc);
+    const saved = sessionStorage.getItem('pawdentify-services-location');
+    let initialLocation = { lat: 28.6139, lng: 77.2090, label: 'New Delhi' };
+    try {
+      if (saved) initialLocation = JSON.parse(saved);
+    } catch (storageError) {
+      console.error('Unable to restore saved service location:', storageError);
+      sessionStorage.removeItem('pawdentify-services-location');
     }
+    setUserLocation(initialLocation);
+    setLocationQuery(initialLocation.label || '');
+    initializeMap(initialLocation);
   }, []);
+
+  useEffect(() => {
+    if (!locationQuery.trim() || locationQuery.length < 3) {
+      setLocationSuggestions([]);
+      return undefined;
+    }
+    const timer = window.setTimeout(async () => {
+      setSearchingLocation(true);
+      try {
+        const token = await getToken();
+        const response = await fetch(`${API_URL}/api/places/search?query=${encodeURIComponent(locationQuery.trim())}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!response.ok) throw new Error('Location search failed');
+        const data = await response.json();
+        setLocationSuggestions(data.locations || []);
+        setShowSuggestions(true);
+      } catch (searchError) {
+        console.error('Location search error:', searchError);
+        setLocationSuggestions([]);
+      } finally {
+        setSearchingLocation(false);
+      }
+    }, 350);
+    return () => window.clearTimeout(timer);
+  }, [getToken, locationQuery]);
+
+  const selectLocation = (location) => {
+    const nextLocation = {
+      lat: Number(location.latitude),
+      lng: Number(location.longitude),
+      label: location.placeName || location.address || locationQuery
+    };
+    setUserLocation(nextLocation);
+    setLocationQuery(nextLocation.label);
+    setShowSuggestions(false);
+    sessionStorage.setItem('pawdentify-services-location', JSON.stringify(nextLocation));
+    if (mapInstanceRef.current?.setCenter) {
+      mapInstanceRef.current.setCenter([nextLocation.lat, nextLocation.lng]);
+    }
+    setPlaces([]);
+  };
+
+  const useCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      setError(t('services.locationError'));
+      return;
+    }
+    setSearchingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const location = { lat: coords.latitude, lng: coords.longitude, label: t('services.currentLocation') };
+        setUserLocation(location);
+        setLocationQuery(location.label);
+        sessionStorage.setItem('pawdentify-services-location', JSON.stringify(location));
+        setSearchingLocation(false);
+        if (mapInstanceRef.current?.setCenter) mapInstanceRef.current.setCenter([location.lat, location.lng]);
+      },
+      (geoError) => {
+        console.error('Geolocation error:', geoError);
+        setError(t('services.locationError'));
+        setSearchingLocation(false);
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
 
   const initializeMap = (location) => {
     if (mapInstanceRef.current) return;
@@ -233,8 +291,8 @@ const Services = () => {
 
       <div className="flex items-center gap-2 text-sm mb-3 px-3 py-2 rounded-lg"
         style={{ 
-          backgroundColor: 'rgba(140, 82, 255, 0.1)',
-          color: '#8c52ff'
+          backgroundColor: 'rgba(217, 119, 6, 0.1)',
+          color: 'var(--primary)'
         }}
       >
         <span>🚗</span>
@@ -250,7 +308,7 @@ const Services = () => {
         }}
         className="w-full px-4 py-2.5 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 hover:opacity-90"
         style={{
-          backgroundColor: '#8c52ff',
+          backgroundColor: 'var(--primary)',
           color: 'white'
         }}
       >
@@ -283,6 +341,47 @@ const Services = () => {
         </div>
 
         {/* Category Buttons */}
+        <div className="max-w-3xl mx-auto mb-8 relative" ref={locationSearchRef}>
+          <label htmlFor="service-location" className="block text-sm font-bold mb-2" style={{ color: 'var(--color-services-title)' }}>
+            {t('services.searchLocation')}
+          </label>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="relative flex-1">
+              <input
+                id="service-location"
+                value={locationQuery}
+                onChange={(event) => setLocationQuery(event.target.value)}
+                onFocus={() => locationSuggestions.length > 0 && setShowSuggestions(true)}
+                placeholder={t('services.searchLocationPlaceholder')}
+                className="w-full rounded-xl border px-4 py-3 pr-10 bg-white dark:bg-stone-800"
+                style={{ borderColor: 'var(--color-services-card-border)', color: 'var(--color-services-title)' }}
+                aria-autocomplete="list"
+                aria-controls="location-suggestions"
+              />
+              {searchingLocation && <span className="absolute right-3 top-3.5 animate-spin w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full" />}
+              {showSuggestions && locationSuggestions.length > 0 && (
+                <div id="location-suggestions" role="listbox" className="absolute z-30 mt-2 w-full rounded-xl border bg-white dark:bg-stone-800 shadow-xl overflow-hidden" style={{ borderColor: 'var(--color-services-card-border)' }}>
+                  {locationSuggestions.map((location, index) => (
+                    <button
+                      type="button"
+                      role="option"
+                      key={`${location.latitude}-${location.longitude}-${index}`}
+                      onClick={() => selectLocation(location)}
+                      className="w-full text-left px-4 py-3 hover:bg-amber-50 dark:hover:bg-stone-700"
+                    >
+                      <span className="font-bold block" style={{ color: 'var(--color-services-title)' }}>{location.placeName}</span>
+                      <span className="text-sm" style={{ color: 'var(--color-services-subtitle)' }}>{location.address}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <button type="button" onClick={useCurrentLocation} className="rounded-xl px-4 py-3 font-bold border-2" style={{ borderColor: 'var(--color-services-category-btn-active-bg)', color: 'var(--color-services-category-btn-active-bg)' }}>
+              📍 {t('services.useCurrentLocation')}
+            </button>
+          </div>
+        </div>
+
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           {categories.map((cat) => (
             <motion.button
@@ -301,7 +400,7 @@ const Services = () => {
               whileHover={{ 
                 scale: 1.05,
                 y: -4,
-                boxShadow: '0 8px 20px rgba(140, 82, 255, 0.3)'
+                boxShadow: '0 8px 20px rgba(217, 119, 6, 0.3)'
               }}
               whileTap={{ 
                 scale: 0.95,
@@ -397,7 +496,7 @@ const Services = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <div className="animate-spin w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full mb-4"></div>
+                  <div className="animate-spin w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full mb-4"></div>
                   <p style={{ color: 'var(--color-services-subtitle)' }}>
                     {t('services.loading')}
                   </p>
@@ -523,11 +622,11 @@ const Services = () => {
           width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(140, 82, 255, 0.1);
+          background: rgba(217, 119, 6, 0.1);
           border-radius: 10px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #8c52ff;
+          background: var(--primary);
           border-radius: 10px;
         }
       `}</style>
@@ -536,9 +635,6 @@ const Services = () => {
 };
 
 export default Services;
-
-
-
 
 
 

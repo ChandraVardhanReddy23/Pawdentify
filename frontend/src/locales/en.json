@@ -1,5 +1,6 @@
 {
   "hero": {
+    "tagline": "Made for curious noses & happy tails",
     "title": "Man's best friend",
     "description": {
       "part1": "Get to know your dog the best you can and give them a home they deserve.",
@@ -13,6 +14,7 @@
     }
   },
   "guidelines": {
+    "proTip": "A calm pup and a clear photo make the best team. Natural light works wonders!",
     "title": "Prediction Guidelines",
     "dos": {
       "title": "Do's",
@@ -35,6 +37,7 @@
     "note": "Following these guidelines will help our AI provide more accurate breed predictions."
   },
   "upload": {
+    "waitingMessage": "Your pup is ready when you are!",
     "title": "Upload & Predict",
     "dragDropTitle": "Drag & drop an image",
     "description": "We recommend a clear, front-facing photo. Images are processed locally before sending to the model.",
@@ -71,7 +74,8 @@
     "nav": {
       "home": "Home",
       "info": "Info",
-      "services": "Services"
+      "services": "Services",
+      "browseBreeds": "Browse"
     },
     "faq": "FAQ",
     "services": "Services",
@@ -84,7 +88,75 @@
     "getStarted": "Get Started",
     "logoAlt": "Pawdentify Logo",
     "lightMode": "Switch to Light Mode",
-    "darkMode": "Switch to Dark Mode"
+    "darkMode": "Switch to Dark Mode",
+    "admin": {
+      "feedback": "Feedback"
+    }
+  },
+  "breeds": {
+  "search": {
+    "placeholder": "Search for a breed...",
+    "filters": {
+      "title": "Filter Breeds",
+      "clear": "Clear Filters",
+      "size": {
+        "label": "Size",
+        "all": "All Sizes",
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
+        "giant": "Giant"
+      },
+      "energy": {
+        "label": "Energy Level",
+        "all": "All Levels",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "grooming": {
+        "label": "Grooming Needs",
+        "all": "All Levels",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "children": {
+        "label": "Good with Children",
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "shedding": {
+        "label": "Shedding Level",
+        "all": "All Levels",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      }
+    },
+    "results": {
+      "showing": "Showing",
+      "of": "of",
+      "breeds": "breeds",
+      "noResults": "No breeds found matching your criteria"
+    }
+  }
+}
+,
+"searchBreed": {
+    "title": "Explore Dog Breeds",
+    "subtitle": "Search from 100+ breeds in our database",
+    "searchPlaceholder": "Type breed name (e.g., 'germen sheperd')...",
+    "searchResults": "Search Results",
+    "noResults": "No breeds found. Try different spelling!",
+    "topSearched": "Top Searched Breeds",
+    "featured": "Featured Breeds",
+    "card": {
+      "size": "Size",
+      "weight": "Weight",
+      "height": "Height"
+    }
   },
   "services": {
     "title": "Find Pet Services Near You",
@@ -106,6 +178,10 @@
     },
     "enableLocation": "Enable location to find services near you",
     "locationError": "Unable to access your location. Please enable location services.",
+    "searchLocation": "Where should we look?",
+    "searchLocationPlaceholder": "Search a city, area, or pincode",
+    "useCurrentLocation": "Use my location",
+    "currentLocation": "Current location",
     "withPhone": "Places with Contact Number",
     "withoutPhone": "Places without Contact Number",
     "noResults": "No places found in this category",
@@ -199,7 +275,7 @@
       "lastUpdated": "Last Updated:",
       "lastUpdatedDate": "January 2025",
       "breedsDatabase": "Breeds:",
-      "breedsDatabaseCount": "120+",
+      "breedsDatabaseCount": "120",
       "support": "Support:",
       "supportEmail": "support@pawdentify.com"
     }
@@ -253,78 +329,88 @@
     }
   },
   "dashboard": {
-    "profile": {
-      "joined": "Joined",
-      "location": "Location"
-    },
-    "tabs": {
-      "pets": "My Pets",
-      "history": "Search History"
-    },
-    "pets": {
-      "title": "My Pets",
-      "noPets": "You haven't added any pets yet",
-      "addPet": "Add Your Pet",
-      "viewDetails": "View Details",
-      "delete": "Delete",
-      "confirmDelete": "Are you sure you want to delete",
-      "birthday": "Birthday",
-      "age": "Age",
-      "yearsOld": "years old",
-      "monthsOld": "months old",
+  "profile": {
+    "joined": "Joined",
+    "location": "Location",
+    "pets": "Pets",
+    "pet": "Pet",
+    "searches": "Searches"
+  },
+  "tabs": {
+    "pets": "My Pets",
+    "history": "Search History"
+  },
+  "pets": {
+    "title": "My Pets",
+    "noPets": "You haven't added any pets yet",
+    "noPetsDesc": "Start building your pet collection today",
+    "addPet": "Add Your Pet",
+    "addFirstPet": "Add Your First Pet",
+    "viewDetails": "View Details",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete",
+    "birthday": "Birthday",
+    "age": "Age",
+    "yearsOld": "years old",
+    "monthsOld": "months old",
+    "petBreed": "Breed",
+    "addedOn": "Added on",
+    "addPetModal": {
+      "saving": "Saving...",
+      "title": "Add Your Pet",
+      "petName": "Pet Name",
+      "petNamePlaceholder": "e.g., Max, Luna, Buddy",
       "petBreed": "Breed",
-      "addedOn": "Added on",
-      "addPetModal": {
-        "saving": "Saving...",
-        "title": "Add Your Pet",
-        "petName": "Pet Name",
-        "petNamePlaceholder": "e.g., Max, Luna, Buddy",
-        "petBreed": "Breed",
-        "petBreedPlaceholder": "e.g., Golden Retriever, Beagle",
-        "petBirthday": "Birthday (Optional)",
-        "petImage": "Pet Photo",
-        "uploadImage": "Upload Photo",
-        "changeImage": "Change Photo",
-        "cancel": "Cancel",
-        "save": "Save Pet",
-        "imageRequired": "Please upload a photo of your pet"
-      },
-      "petDetails": {
-        "title": "Pet Details",
-        "journal": "Pet Journal",
-        "addNote": "Add Note",
-        "noNotes": "No journal entries yet. Start documenting your pet's journey!",
-        "notePlaceholder": "Write about your pet...",
-        "noteCategory": "Category",
-        "saveNote": "Save Note",
-        "deleteNote": "Delete",
-        "close": "Close",
-        "filterByCategory": "Filter by category",
-        "allCategories": "All Categories",
-        "categories": {
-          "health": "Health",
-          "vaccination": "Vaccination",
-          "treats": "Treats & Rewards",
-          "dailyLife": "Daily Life",
-          "milestone": "Milestone",
-          "other": "Other"
-        }
-      },
-      "adoptTitle": "Looking to Adopt?",
-      "adoptDesc": "Millions of pets are waiting for their forever home. Discover the joy of adoption and learn why it's one of the most rewarding decisions you can make.",
-      "adoptCTA": "Find Pets to Adopt"
+      "petBreedPlaceholder": "e.g., Golden Retriever, Beagle",
+      "petBirthday": "Birthday (Optional)",
+      "petImage": "Pet Photo",
+      "uploadImage": "Upload Photo",
+      "changeImage": "Change Photo",
+      "cancel": "Cancel",
+      "save": "Save Pet",
+      "imageRequired": "Please upload a photo of your pet"
     },
-    "history": {
-      "title": "Search History",
-      "noHistory": "No search history yet",
-      "searchDesc": "Upload a photo to identify your dog's breed",
-      "startSearch": "Identify a Breed",
-      "breed": "Breed",
-      "confidence": "Confidence",
-      "searchedOn": "Searched on",
-      "viewDetails": "View Details"
+    "petDetails": {
+      "title": "Pet Details",
+      "journal": "Pet Journal",
+      "addNote": "Add Note",
+      "noNotes": "No journal entries yet. Start documenting your pet's journey!",
+      "notePlaceholder": "Write about your pet...",
+      "noteCategory": "Category",
+      "saveNote": "Save Note",
+      "deleteNote": "Delete",
+      "close": "Close",
+      "filterByCategory": "Filter by category",
+      "allCategories": "All Categories",
+      "categories": {
+        "health": "Health",
+        "vaccination": "Vaccination",
+        "treats": "Treats & Rewards",
+        "dailyLife": "Daily Life",
+        "milestone": "Milestone",
+        "other": "Other"
+      }
+    },
+    "adoptTitle": "Looking to Adopt?",
+    "adoptDesc": "Millions of pets are waiting for their forever home. Discover the joy of adoption and learn why it's one of the most rewarding decisions you can make.",
+    "adoptCTA": "Find Pets to Adopt",
+    "adoption": {
+      "title": "Consider Adopting a Pet",
+      "description": "Thousands of pets are waiting for loving homes. Adoption saves lives!",
+      "findPets": "Find Adoptable Pets Near You"
     }
   },
+  "history": {
+    "title": "Prediction History",
+    "noHistory": "No search history yet",
+    "noHistoryDesc": "Start identifying dog breeds to build your history",
+    "startSearch": "Start Identifying Breeds",
+    "confidence": "Confidence",
+    "searchedOn": "Searched on",
+    "remove": "Remove"
+  },
+  "loading": "Loading..."
+},
   "breedInfo": {
     "noInfoFound": "No detailed info found for the predicted breed.",
     "unknownBreed": "Unknown",
@@ -376,5 +462,40 @@
     "edit": "Edit",
     "close": "Close",
     "back": "Back"
+  },
+  "feedback": {
+    "helpfulQuestion": "Was this helpful?",
+    "title": "Feedback",
+    "upvote": "Correct",
+    "downvote": "Incorrect",
+    "youSelected": "You selected:",
+    "additionalFeedback": "Tell us more (optional)",
+    "placeholder": "What could we improve?",
+    "submitButton": "Submit Feedback",
+    "submitting": "Submitting...",
+    "cancel": "Cancel",
+    "selectVoteError": "Please select upvote or downvote",
+    "submitError": "Failed to submit feedback",
+    "networkError": "Network error. Please try again.",
+    "thankYou": "Thank you for your feedback!"
+  },
+  "admin": {
+    "feedback": {
+      "title": "Admin Feedback Dashboard",
+      "accessDenied": "Access Denied",
+      "noPermission": "You do not have permission to view this page.",
+      "errorTitle": "Error",
+      "fetchError": "Failed to fetch feedbacks",
+      "networkError": "Network error",
+      "noFeedbacks": "No feedbacks available.",
+      "table": {
+        "userId": "User ID",
+        "predictedBreed": "Predicted Breed",
+        "voteType": "Vote Type",
+        "message": "Feedback Message",
+        "timestamp": "Timestamp",
+        "noMessage": "N/A"
+      }
+    }
   }
 }

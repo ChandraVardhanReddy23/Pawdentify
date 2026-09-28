@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
 import { SignedIn, SignedOut, useUser, useClerk } from "@clerk/clerk-react";
 import { motion, AnimatePresence } from 'framer-motion';
-import pawLogo from "../assets/PAWS_white_text.png";
+import pawPrint from "../assets/dogpaw.png";
 
 const handleScrollTo = (id) => {
   const el = document.getElementById(id.substring(1));
@@ -13,6 +13,24 @@ const handleScrollTo = (id) => {
     window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
   }
 };
+
+// Text-based logo so it's always visible on any header background
+const PawLogo = ({ t }) => (
+  <div className="flex items-center space-x-0.5 text-2xl sm:text-3xl font-archivo font-bold tracking-widest select-none"
+    style={{ color: 'var(--color-nav-link)' }}
+  >
+    <span>P</span>
+    <motion.img
+      src={pawPrint}
+      alt=""
+      className="w-8 h-8 sm:w-10 sm:h-10"
+      style={{ filter: 'brightness(0) invert(1)' }}
+      whileHover={{ rotate: 360, scale: 1.15 }}
+      transition={{ duration: 0.4 }}
+    />
+    <span>WDENTIFY</span>
+  </div>
+);
 
 // Toast Component
 const Toast = ({ message, onClose }) => {
@@ -50,7 +68,9 @@ const Header = ({ showInfo }) => {
   const { signOut } = useClerk();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
   const onHome = location.pathname === "/";
 
   // Close dropdown when clicking outside
@@ -58,6 +78,9 @@ const Header = ({ showInfo }) => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false);
+      }
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setMobileMenuOpen(false);
       }
     };
 
@@ -69,11 +92,13 @@ const Header = ({ showInfo }) => {
     await signOut();
     navigate('/sign-in');
     setShowDropdown(false);
+    setMobileMenuOpen(false);
   };
 
   const handleDashboardClick = () => {
     navigate('/dashboard');
     setShowDropdown(false);
+    setMobileMenuOpen(false);
   };
 
   const handleServicesClick = (e, isSignedIn) => {
@@ -81,12 +106,17 @@ const Header = ({ showInfo }) => {
       e.preventDefault();
       setShowToast(true);
     }
+    setMobileMenuOpen(false);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
   };
 
   return (
     <>
       <header className="header-root fixed top-0 left-0 w-full z-50 shadow-md">
-        <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center h-20">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center h-20">
           {/* Logo */}
           {onHome ? (
             <a
@@ -96,16 +126,16 @@ const Header = ({ showInfo }) => {
                 handleScrollTo("#hero");
               }}
             >
-              <img src={pawLogo} alt={t("header.logoAlt")} className="w-60 h-auto object-contain" />
+              <PawLogo t={t} />
             </a>
           ) : (
             <Link to="/">
-              <img src={pawLogo} alt={t("header.logoAlt")} className="w-45 h-auto object-contain" />
+              <PawLogo t={t} />
             </Link>
           )}
 
-          {/* Navigation */}
-          <div className="flex items-center space-x-6">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-6">
             <div className="flex items-center space-x-6">
               {onHome ? (
                 <>
@@ -126,13 +156,17 @@ const Header = ({ showInfo }) => {
                     </a>
                   ))}
 
+                  <Link to="/search-breed" className="nav-link font-alfa font-bold text-xl tracking-wide cursor-pointer">
+                    {t("header.nav.browseBreeds")}
+                  </Link>
+
                   <SignedIn>
                     <Link to="/services" className="nav-link font-alfa font-bold text-xl tracking-wide cursor-pointer">
                       {t("header.services")}
                     </Link>
                     {user?.publicMetadata?.role === 'admin' && (
                       <Link to="/admin" className="nav-link font-alfa font-bold text-xl tracking-wide cursor-pointer">
-                        Feedback
+                        {t("header.admin.feedback")}
                       </Link>
                     )}
                   </SignedIn>
@@ -152,9 +186,12 @@ const Header = ({ showInfo }) => {
                   </Link>
                 </>
               ) : (
-                <Link to="/" className="btn-hover font-alfa px-6 py-2 rounded-full text-lg font-bold shadow-md">
+                <button
+                  onClick={() => navigate(-1)}
+                  className="btn-hover font-alfa px-6 py-2 rounded-full text-lg font-bold shadow-md"
+                >
                   {t("header.back")}
-                </Link>
+                </button>
               )}
             </div>
 
@@ -191,14 +228,12 @@ const Header = ({ showInfo }) => {
             </SignedOut>
 
             <SignedIn>
-              {/* Custom Profile Dropdown */}
               <div className="relative" ref={dropdownRef}>
-                {/* Profile Picture Button */}
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
                   className="w-10 h-10 rounded-full border-2 transition-all cursor-pointer overflow-hidden"
                   style={{
-                    borderColor: showDropdown ? '#8c52ff' : 'white',
+                    borderColor: showDropdown ? 'var(--primary)' : 'white',
                   }}
                 >
                   <img 
@@ -208,7 +243,6 @@ const Header = ({ showInfo }) => {
                   />
                 </button>
 
-                {/* Dropdown Menu */}
                 {showDropdown && (
                   <div 
                     className="absolute right-0 mt-2 w-64 rounded-lg shadow-2xl py-2 z-50"
@@ -220,7 +254,6 @@ const Header = ({ showInfo }) => {
                       backdropFilter: 'blur(10px)',
                     }}
                   >
-                    {/* User Info */}
                     <div 
                       className="px-4 py-3 border-b"
                       style={{ borderColor: 'var(--color-auth-divider)' }}
@@ -239,14 +272,13 @@ const Header = ({ showInfo }) => {
                       </p>
                     </div>
 
-                    {/* Menu Items */}
                     <div className="py-1">
                       <button
                         onClick={handleDashboardClick}
                         className="flex items-center w-full px-4 py-2 text-sm transition-colors text-left"
                         style={{ color: 'var(--clerk-color-text-primary)' }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(140, 82, 255, 0.15)';
+                          e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.15)';
                         }}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       >
@@ -262,7 +294,7 @@ const Header = ({ showInfo }) => {
                         className="flex items-center px-4 py-2 text-sm transition-colors"
                         style={{ color: 'var(--clerk-color-text-primary)' }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(140, 82, 255, 0.15)';
+                          e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.15)';
                         }}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       >
@@ -286,7 +318,7 @@ const Header = ({ showInfo }) => {
                         className="flex items-center w-full px-4 py-2 text-sm transition-colors text-left"
                         style={{ color: 'var(--clerk-color-text-primary)' }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(140, 82, 255, 0.15)';
+                          e.currentTarget.style.backgroundColor = 'rgba(217, 119, 6, 0.15)';
                         }}
                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                       >
@@ -301,7 +333,184 @@ const Header = ({ showInfo }) => {
               </div>
             </SignedIn>
           </div>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center gap-3">
+            <button
+              className="header-settings"
+              onClick={toggleTheme}
+            >
+              {theme === 'dark' ? (
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+              )}
+            </button>
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-md"
+              style={{ color: 'var(--color-nav-link)' }}
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </nav>
+
+        {/* Mobile Menu - ABSOLUTE POSITIONING */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              ref={mobileMenuRef}
+              className="lg:hidden absolute top-20 left-0 right-0 shadow-lg"
+              style={{
+                backgroundColor: 'var(--color-header-bg)',
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                zIndex: 40
+              }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="px-4 py-4 space-y-3">
+                {onHome ? (
+                  <>
+                    {[
+                      { id: "#hero", label: t("header.nav.home") },
+                      ...(showInfo ? [{ id: "#info", label: t("header.nav.info") }] : []),
+                    ].map((link) => (
+                      <a
+                        key={link.id}
+                        href={link.id}
+                        className="block py-2 font-alfa font-bold text-lg"
+                        style={{ color: 'var(--color-nav-link)' }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleScrollTo(link.id);
+                          closeMobileMenu();
+                        }}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+
+                    <Link
+                      to="/search-breed"
+                      className="block py-2 font-alfa font-bold text-lg"
+                      style={{ color: 'var(--color-nav-link)' }}
+                      onClick={closeMobileMenu}
+                    >
+                      {t("header.nav.browseBreeds")}
+                    </Link>
+
+                    <SignedIn>
+                      <Link
+                        to="/services"
+                        className="block py-2 font-alfa font-bold text-lg"
+                        style={{ color: 'var(--color-nav-link)' }}
+                        onClick={closeMobileMenu}
+                      >
+                        {t("header.services")}
+                      </Link>
+                      {user?.publicMetadata?.role === 'admin' && (
+                        <Link
+                          to="/admin"
+                          className="block py-2 font-alfa font-bold text-lg"
+                          style={{ color: 'var(--color-nav-link)' }}
+                          onClick={closeMobileMenu}
+                        >
+                          {t("header.admin.feedback")}
+                        </Link>
+                      )}
+                    </SignedIn>
+
+                    <SignedOut>
+                      <a
+                        href="/services"
+                        className="block py-2 font-alfa font-bold text-lg"
+                        style={{ color: 'var(--color-nav-link)' }}
+                        onClick={(e) => handleServicesClick(e, false)}
+                      >
+                        {t("header.services")}
+                      </a>
+                    </SignedOut>
+
+                    <Link
+                      to="/faq"
+                      className="block py-2 font-alfa font-bold text-lg"
+                      style={{ color: 'var(--color-nav-link)' }}
+                      onClick={closeMobileMenu}
+                    >
+                      {t("header.faq")}
+                    </Link>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => {
+                      navigate(-1);
+                      closeMobileMenu();
+                    }}
+                    className="btn-hover font-alfa px-6 py-2 rounded-full text-lg font-bold shadow-md w-full"
+                  >
+                    {t("header.back")}
+                  </button>
+                )}
+
+                <div className="border-t pt-3 mt-3" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+                  <SignedOut>
+                    <Link
+                      to="/sign-up"
+                      className="btn-hover font-alfa px-6 py-2 rounded-full text-lg font-bold shadow-md block text-center"
+                      onClick={closeMobileMenu}
+                    >
+                      {t("header.signUp")}
+                    </Link>
+                  </SignedOut>
+
+                  <SignedIn>
+                    <div className="space-y-2">
+                      <button
+                        onClick={handleDashboardClick}
+                        className="w-full text-left py-2 px-4 rounded-lg font-semibold"
+                        style={{ color: 'var(--color-nav-link)' }}
+                      >
+                        {t("header.dashboard")}
+                      </button>
+                      <Link
+                        to="/settings"
+                        className="block py-2 px-4 rounded-lg font-semibold"
+                        style={{ color: 'var(--color-nav-link)' }}
+                        onClick={closeMobileMenu}
+                      >
+                        {t("header.settings")}
+                      </Link>
+                      <button
+                        onClick={handleSignOut}
+                        className="w-full text-left py-2 px-4 rounded-lg font-semibold"
+                        style={{ color: 'var(--color-nav-link)' }}
+                      >
+                        {t("header.signOut")}
+                      </button>
+                    </div>
+                  </SignedIn>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Toast Notification */}
@@ -318,4 +527,7 @@ const Header = ({ showInfo }) => {
 };
 
 export default Header;
+
+
+
 
